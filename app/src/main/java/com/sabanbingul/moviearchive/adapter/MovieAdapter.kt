@@ -40,4 +40,10 @@ class MovieAdapter(private val movieList : ArrayList<Movie>) : RecyclerView.Adap
             Navigation.findNavController(it).navigate(action)
         }
     }
+
+    fun updateMovieList(newMovieList : List<Movie>){
+        movieList.clear()
+        movieList.addAll(newMovieList)
+        notifyDataSetChanged()
+    }
 }

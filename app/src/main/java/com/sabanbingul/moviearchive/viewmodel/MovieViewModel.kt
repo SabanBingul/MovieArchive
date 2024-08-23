@@ -1,6 +1,7 @@
 package com.sabanbingul.moviearchive.viewmodel
 
 import android.app.Application
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -36,8 +37,9 @@ class MovieViewModel(application: Application) : AndroidViewModel(application) {
             }
 
             override fun onCancelled(error: DatabaseError) {
-
+                Log.e("MovieViewModel", "Firebase data fetch cancelled: ${error.message}")
             }
+
         })
     }
 
