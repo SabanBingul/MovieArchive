@@ -1,6 +1,7 @@
 package com.sabanbingul.moviearchive.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,12 +42,19 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         movieAdapter = MovieAdapter(arrayListOf())
-        binding.movieSliderRV.layoutManager = LinearLayoutManager(context)
+        binding.movieSliderRV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.movieSliderRV.adapter = movieAdapter
 
         viewModel.movieList.observe(viewLifecycleOwner, Observer { movies ->
-            movies?.let { movieAdapter.updateMovieList(it) }
+            if (movies != null) {
+                Log.d("MainFragment", "Observer called")
+                Log.d("MainFragment", "Movies loaded: ${movies.size}")
+                movieAdapter.updateMovieList(movies)
+            } else {
+                Log.d("MainFragment", "No movies available")
+            }
         })
+
 
         carouselActivity()
 
